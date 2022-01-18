@@ -86,22 +86,22 @@ import static org.firstinspires.ftc.teamcode.util.field.Context.telemetry;
  */
 @Config
 public class Robot extends ImprovedTankDrive {
-    private static final int CAMERA_WIDTH = 320; // width  of wanted camera resolution
-    private static final int CAMERA_HEIGHT = 240; // height of wanted camera resolution
-    private static final String WEBCAM_NAME = "Webcam 1"; // insert webcam name from configuration if using webcam
-    private OpenCvCamera webcam;
-    private final Detector detector = new Detector();
+//    private static final int CAMERA_WIDTH = 320; // width  of wanted camera resolution
+//    private static final int CAMERA_HEIGHT = 240; // height of wanted camera resolution
+//    private static final String WEBCAM_NAME = "Webcam 1"; // insert webcam name from configuration if using webcam
+//    private OpenCvCamera webcam;
+//    private final Detector detector = new Detector();
     private final double pitchOffset;
     public static double div = 1;
     public static double headingSpeed = 1.4;
 
     final HardwareMap hardwareMap;
 
-    private final Module[] modules;
-    public Intake intake;
-    public Deposit deposit;
-    public Carousel carousel;
-    public Capstone capstone;
+//    private final Module[] modules;
+//    public Intake intake;
+//    public Deposit deposit;
+//    public Carousel carousel;
+//    public Capstone capstone;
 
     private final BNO055IMU imu;
     private final List<DcMotorEx> motors, leftMotors, rightMotors;
@@ -166,15 +166,15 @@ public class Robot extends ImprovedTankDrive {
                 rightRear = hardwareMap.get(DcMotorEx.class, "rightRear"), // enc
                 rightFront = hardwareMap.get(DcMotorEx.class, "rightFront"); //
 //                rightMid = hardwareMap.get(DcMotorEx.class, "mr"); //
-        modules = new Module[] {
-                intake = new Intake(hardwareMap),
-                deposit = new Deposit(hardwareMap, intake),
-                carousel = new Carousel(hardwareMap),
-                capstone = new Capstone(hardwareMap),
-        };
-        for (Module module : modules) {
-            module.init();
-        }
+//        modules = new Module[] {
+//                intake = new Intake(hardwareMap),
+//                deposit = new Deposit(hardwareMap, intake),
+//                carousel = new Carousel(hardwareMap),
+//                capstone = new Capstone(hardwareMap),
+//        };
+//        for (Module module : modules) {
+//            module.init();
+//        }
         motors = Arrays.asList(leftFront, leftRear,/* leftMid,*/ rightFront, rightRear/*, rightMid*/);
         leftMotors = Arrays.asList(leftFront, leftRear/*, leftMid*/);
         rightMotors = Arrays.asList(rightFront, rightRear/*, rightMid*/);
@@ -205,51 +205,51 @@ public class Robot extends ImprovedTankDrive {
         telemetry.update();
     }
 
-    public void visionInit() {
-        int cameraMonitorViewId = this
-                .hardwareMap
-                .appContext
-                .getResources().getIdentifier(
-                        "cameraMonitorViewId",
-                        "id",
-                        hardwareMap.appContext.getPackageName()
-                );
-        webcam = OpenCvCameraFactory
-                .getInstance()
-                .createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId);
-        webcam.setPipeline(detector);
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-            @Override
-            public void onOpened() {
-                webcam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
-            }
-            public void onError(int errorCode) {
-            }
-        });
-        dashboard.startCameraStream(webcam, 30);
-    }
-
-    public void setPipeline(OpenCvPipeline pipeline) {
-        webcam.setPipeline(pipeline);
-    }
-
-    public void turnOffVision() {
-        dashboard.stopCameraStream();
-        webcam.closeCameraDevice();
-    }
-
-    public void scan() {
-        location = detector.getLocation();
-    }
-
-    public static Deposit.State getLevel(Detector.Location location) {
-        switch (location) {
-            case LEFT: return Deposit.State.IDLE;
-            case MIDDLE: return Deposit.State.LEVEL2;
-            case RIGHT: return Deposit.State.LEVEL3;
-        }
-        return Deposit.State.LEVEL3;
-    }
+//    public void visionInit() {
+//        int cameraMonitorViewId = this
+//                .hardwareMap
+//                .appContext
+//                .getResources().getIdentifier(
+//                        "cameraMonitorViewId",
+//                        "id",
+//                        hardwareMap.appContext.getPackageName()
+//                );
+//        webcam = OpenCvCameraFactory
+//                .getInstance()
+//                .createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId);
+//        webcam.setPipeline(detector);
+//        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+//            @Override
+//            public void onOpened() {
+//                webcam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+//            }
+//            public void onError(int errorCode) {
+//            }
+//        });
+//        dashboard.startCameraStream(webcam, 30);
+//    }
+//
+//    public void setPipeline(OpenCvPipeline pipeline) {
+//        webcam.setPipeline(pipeline);
+//    }
+//
+//    public void turnOffVision() {
+//        dashboard.stopCameraStream();
+//        webcam.closeCameraDevice();
+//    }
+//
+//    public void scan() {
+//        location = detector.getLocation();
+//    }
+//
+//    public static Deposit.State getLevel(Detector.Location location) {
+//        switch (location) {
+//            case LEFT: return Deposit.State.IDLE;
+//            case MIDDLE: return Deposit.State.LEVEL2;
+//            case RIGHT: return Deposit.State.LEVEL3;
+//        }
+//        return Deposit.State.LEVEL3;
+//    }
 
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
         return new TrajectoryBuilder(startPose, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
@@ -353,9 +353,9 @@ public class Robot extends ImprovedTankDrive {
         if (!Thread.currentThread().isInterrupted()) {
             Context.robotPose = getPoseEstimate();
         }
-        for (Module module : modules) {
-            module.update();
-        }
+//        for (Module module : modules) {
+//            module.update();
+//        }
         Context.packet.put("Loop Time", loopTime.milliseconds());
         loopTime.reset();
         if (admissibleDistance != admissibleError.getX() || admissibleHeading != Math.toDegrees(admissibleError.getHeading())) {
@@ -385,11 +385,11 @@ public class Robot extends ImprovedTankDrive {
      * @return Whether the robot's current state is potentially hazardous to operate in
      */
     public boolean isHazardous() {
-        for (Module module : modules) {
-            if (module.isHazardous()) {
-                return true;
-            }
-        }
+//        for (Module module : modules) {
+//            if (module.isHazardous()) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
@@ -397,11 +397,11 @@ public class Robot extends ImprovedTankDrive {
      * @return Whether the robot is currently doing work
      */
     public boolean isDoingWork() {
-        for (Module module : modules) {
-            if (module.isDoingWork()) {
-                return true;
-            }
-        }
+//        for (Module module : modules) {
+//            if (module.isDoingWork()) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
