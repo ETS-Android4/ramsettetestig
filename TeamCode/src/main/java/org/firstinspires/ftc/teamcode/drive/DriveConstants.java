@@ -23,8 +23,8 @@ public class DriveConstants {
     /*
      * These are motor constants that should be listed online for your motors.
      */
-    public static final double TICKS_PER_REV = 378;
-    public static final double MAX_RPM = 444.444444444;
+    public static final double TICKS_PER_REV = 384.5;
+    public static final double MAX_RPM = 435;
 
 
     /*
@@ -60,9 +60,9 @@ public class DriveConstants {
      * angular distances although most angular parameters are wrapped in Math.toRadians() for
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
-    public static double WHEEL_RADIUS = 1.88976; // in
+    public static double WHEEL_RADIUS = 2.36; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 15.6043307; // in
+    public static double TRACK_WIDTH = 9.5; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -70,9 +70,13 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 0.011; //1.0 / rpmToVelocity(MAX_RPM);
+//    public static double kV = 0.011; //1.0 / rpmToVelocity(MAX_RPM);
+//    public static double kA = 0.003;
+//    public static double kStatic = 0.09;
+    public static double kV = 0.01; //1.0 / rpmToVelocity(MAX_RPM);
     public static double kA = 0.003;
-    public static double kStatic = 0.09;
+    public static double kStatic = 0.02;
+
 
     public static double kVBackward = kV;
     public static double kABackward = kA;

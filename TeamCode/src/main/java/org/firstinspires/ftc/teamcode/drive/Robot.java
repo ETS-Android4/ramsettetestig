@@ -109,7 +109,8 @@ public class Robot extends ImprovedTankDrive {
     private final List<LynxModule> allHubs;
     private UltrasonicDistanceSensor frontDistance, leftDistance, rightDistance;
 
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(15,0,0.7);
+//    public static PIDCoefficients HEADING_PID = new PIDCoefficients(15,0,0.7);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(15,0,0.778);
 
     public static double VX_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 2;
