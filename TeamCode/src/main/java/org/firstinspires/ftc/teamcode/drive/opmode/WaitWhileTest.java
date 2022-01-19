@@ -16,6 +16,7 @@ public class WaitWhileTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         Robot robot = new Robot(this, OpModeType.AUTO);
 
+
         TrajectorySequence traj = robot.trajectorySequenceBuilder(Context.robotPose)
 //                .UNSTABLE_addTemporalMarkerOffset(0.2, () -> robot.intake.setPower(1))
                 .splineTo(new Vector2d(30, 30), 0)

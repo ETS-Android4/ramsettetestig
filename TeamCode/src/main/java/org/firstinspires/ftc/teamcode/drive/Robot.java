@@ -474,8 +474,9 @@ public class Robot extends ImprovedTankDrive {
         for (DcMotorEx rightMotor : rightMotors) {
             rightSum += encoderTicksToInches(rightMotor.getCurrentPosition());
         }
-        double pitch = getPitch();
-        return Arrays.asList(leftSum * Math.cos(pitch), rightSum * Math.cos(pitch));
+//        double pitch = getPitch();
+//        return Arrays.asList(leftSum * Math.cos(pitch), rightSum * Math.cos(pitch));
+        return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
     }
 
     public List<Double> getWheelVelocities() {
@@ -486,8 +487,9 @@ public class Robot extends ImprovedTankDrive {
         for (DcMotorEx rightMotor : rightMotors) {
             rightSum += encoderTicksToInches(rightMotor.getVelocity());
         }
-        double pitch = getPitch();
-        return Arrays.asList(leftSum * Math.cos(pitch), rightSum * Math.cos(pitch));
+//        double pitch = getPitch();
+//        return Arrays.asList(leftSum * Math.cos(pitch), rightSum * Math.cos(pitch));
+        return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
     }
 
     @Override
@@ -541,7 +543,7 @@ public class Robot extends ImprovedTankDrive {
         // expected). This bug does NOT affect orientation.
         //
         // See https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/251 for details.
-        return (double) -imu.getAngularVelocity().xRotationRate;
+        return (double) imu.getAngularVelocity().xRotationRate;
     }
 
     @Override
