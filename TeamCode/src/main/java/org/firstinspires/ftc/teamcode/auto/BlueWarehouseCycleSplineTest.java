@@ -1,18 +1,23 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import com.acmerobotics.roadrunner.followers.RamseteFollower;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.Robot;
-import org.firstinspires.ftc.teamcode.roadrunnerext.RamseteConstants;
 import org.firstinspires.ftc.teamcode.trajectorysequenceimproved.TrajectorySequence;
 
+@Config
 @Autonomous(name="Blue warehouse cycle spline test Roadrunner Path", group="Roadrunner Paths")
 public class BlueWarehouseCycleSplineTest extends LinearOpMode {
+    public static double MOTORVELOF = 1.0;
+    public static double MOTORVELOFBACKFORTH = 0.5;
+    public static double MOTORVELOFSPLINEIN = 0.5;
+    public static double MOTORVELOF3 = 1.0;
     @Override
     public void runOpMode() {
         Robot drive = new Robot(this);
@@ -45,18 +50,29 @@ public class BlueWarehouseCycleSplineTest extends LinearOpMode {
                 .turn(Math.toRadians(-50))
                 .build();
 
-        TrajectorySequence Trajectory3 = drive.trajectorySequenceBuilder(Trajectory1.end())
+        TrajectorySequence Trajectory3 = drive.trajectorySequenceBuilder(Trajectory2.end())
                 .setReversed(false)
                 .splineTo(new Vector2d(30, 66), Math.toRadians(0))
+                .build();
+
+        TrajectorySequence Forward = drive.trajectorySequenceBuilder(Trajectory3.end())
                 .forward(24)
                 .build();
 
-        TrajectorySequence Trajectory4 = drive.trajectorySequenceBuilder(Trajectory3.end())
+        TrajectorySequence Backward = drive.trajectorySequenceBuilder(Forward.end())
                 .back(24)
+                .build();
+
+        TrajectorySequence SplineOut = drive.trajectorySequenceBuilder(Backward.end())
+
                 .setReversed(true)
                 .splineTo(new Vector2d(-20, 48), Math.toRadians(200)) // reversed
                 .build();
 
+        TrajectorySequence SplineIn = drive.trajectorySequenceBuilder(SplineOut.end())
+                .setReversed(false)
+                .splineTo(new Vector2d(30, 66), Math.toRadians(0))
+                .build();
 
         /*
         TrajectorySequence Trajectory5 = drive.trajectorySequenceBuilder(Trajectory4.end())
@@ -72,14 +88,38 @@ public class BlueWarehouseCycleSplineTest extends LinearOpMode {
 
 
         // Run trajectory 1
+        drive.setMotorRPMFraction(MOTORVELOF);
         drive.followTrajectorySequence((Trajectory1));
+
+        drive.setMotorRPMFraction(MOTORVELOFBACKFORTH);
         drive.followTrajectorySequence((Trajectory2));
+        drive.setMotorRPMFraction(MOTORVELOFSPLINEIN);
         drive.followTrajectorySequence((Trajectory3));
-        drive.followTrajectorySequence((Trajectory4));
-        drive.followTrajectorySequence((Trajectory3));
-        drive.followTrajectorySequence((Trajectory4));
-        drive.followTrajectorySequence((Trajectory3));
-        drive.followTrajectorySequence((Trajectory4));
+
+        drive.setMotorRPMFraction(MOTORVELOFBACKFORTH);
+        drive.followTrajectorySequence((Forward));
+        drive.followTrajectorySequence((Backward));
+
+        drive.setMotorRPMFraction(MOTORVELOF);
+        drive.followTrajectorySequence((SplineOut));
+        drive.setMotorRPMFraction(MOTORVELOFSPLINEIN);
+        drive.followTrajectorySequence((SplineIn));
+
+        drive.setMotorRPMFraction(MOTORVELOFBACKFORTH);
+        drive.followTrajectorySequence((Forward));
+        drive.followTrajectorySequence((Backward));
+        drive.setMotorRPMFraction(MOTORVELOF);
+        drive.followTrajectorySequence((SplineOut));
+        drive.setMotorRPMFraction(MOTORVELOFSPLINEIN);
+        drive.followTrajectorySequence((SplineIn));
+
+        drive.setMotorRPMFraction(MOTORVELOFBACKFORTH);
+        drive.followTrajectorySequence((Forward));
+        drive.followTrajectorySequence((Backward));
+        drive.setMotorRPMFraction(MOTORVELOF);
+        drive.followTrajectorySequence((SplineOut));
+        drive.setMotorRPMFraction(MOTORVELOFSPLINEIN);
+        drive.followTrajectorySequence((SplineIn));
 
     }
 }

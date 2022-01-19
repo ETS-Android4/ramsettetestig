@@ -259,6 +259,14 @@ public class Robot extends ImprovedTankDrive {
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, boolean reversed) {
         return new TrajectoryBuilder(startPose, reversed, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
     }
+    public void setMotorRPMFraction(double inputRPMFRACTIOn) {
+        for (DcMotorEx motor : motors) {
+            MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
+            motorConfigurationType.setAchieveableMaxRPMFraction(inputRPMFRACTIOn);
+            motor.setMotorType(motorConfigurationType);
+            motor.setCurrentAlert(MAX_CURRENT, CurrentUnit.MILLIAMPS);
+        }
+    }
 
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose, double startHeading) {
         return new TrajectoryBuilder(startPose, startHeading, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
