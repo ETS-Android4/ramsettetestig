@@ -52,7 +52,7 @@ public class BlueWarehouseCycleSplineTest extends LinearOpMode {
 
         TrajectorySequence Trajectory3 = drive.trajectorySequenceBuilder(Trajectory2.end())
                 .setReversed(false)
-                .splineTo(new Vector2d(15, 66), Math.toRadians(0))
+                .splineTo(new Vector2d(20, 66), Math.toRadians(0))
                 .build();
 
         TrajectorySequence Forward = drive.trajectorySequenceBuilder(Trajectory3.end())
@@ -66,12 +66,12 @@ public class BlueWarehouseCycleSplineTest extends LinearOpMode {
         TrajectorySequence SplineOut = drive.trajectorySequenceBuilder(Backward.end())
 
                 .setReversed(true)
-                .splineTo(new Vector2d(-20, 48), Math.toRadians(200)) // reversed
+                .splineTo(new Vector2d(-15, 44), Math.toRadians(200)) // reversed
                 .build();
 
         TrajectorySequence SplineIn = drive.trajectorySequenceBuilder(SplineOut.end())
                 .setReversed(false)
-                .splineTo(new Vector2d(15, 66), Math.toRadians(0))
+                .splineTo(new Vector2d(20, 66), Math.toRadians(0))
                 .build();
 
         /*
